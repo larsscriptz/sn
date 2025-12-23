@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brainrot Mart | Premium Digital Waste</title>
+    <title>Brainrot Mart | Premium Items</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -87,8 +87,8 @@
         .tag { background: #333; color: var(--text-sec); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; }
         .price { float: right; font-weight: bold; color: #4ade80; font-size: 1.2rem; }
         
-        .card h3 { margin: 10px 0; font-size: 1.3rem; }
-        .card p { color: var(--text-sec); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .card h3 { margin: 10px 0; font-size: 1.1rem; line-height: 1.4; }
+        .card p { color: var(--text-sec); font-size: 0.9rem; margin-bottom: 1.5rem; margin-top: 5px; }
 
         .btn {
             display: block;
@@ -149,7 +149,7 @@
 <body>
 
     <header>
-        <div class="logo"><i class="fa-solid fa-skull"></i> Brainrot Mart</div>
+        <div class="logo"><i class="fa-solid fa-ghost"></i> Brainrot Mart</div>
         <div>
             <a href="#" style="color: white; text-decoration: none; margin-right: 20px;">Shop</a>
             <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a>
@@ -157,46 +157,46 @@
     </header>
 
     <div class="hero">
-        <h1>Premium Digital Brainrot</h1>
-        <p>Verified cringe. Instant delivery. Media that melts your frontal lobe.</p>
+        <h1>Premium Game Items</h1>
+        <p>Verified Traits. Max Stats. Instant Delivery.</p>
     </div>
 
     <div class="container">
-        <h2 class="section-title">Latest Drops</h2>
+        <h2 class="section-title">Latest Stock</h2>
         <div class="grid">
-            <!-- Product 1 -->
+            <!-- Product 1 (Your Specific Request) -->
             <div class="card">
-                <div class="card-img"><i class="fa-solid fa-file-video"></i></div>
+                <div class="card-img"><i class="fa-solid fa-cat"></i></div>
+                <div class="card-body">
+                    <span class="tag">Godly</span>
+                    <span class="price">€25.00</span>
+                    <h3>Rainbow Los 25 200M/s</h3>
+                    <p>(Reindeer & Nyan Cat Trait)</p>
+                    <button class="btn" onclick="openPayment('Rainbow Los 25 200M/s', 25)">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Product 2 (Similar Vibe) -->
+            <div class="card">
+                <div class="card-img"><i class="fa-solid fa-dragon"></i></div>
+                <div class="card-body">
+                    <span class="tag">Exotic</span>
+                    <span class="price">€45.00</span>
+                    <h3>Galaxy Void 500T</h3>
+                    <p>(Glitch & Dark Matter Trait) - Speed x500</p>
+                    <button class="btn" onclick="openPayment('Galaxy Void 500T', 45)">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Product 3 (Similar Vibe) -->
+            <div class="card">
+                <div class="card-img"><i class="fa-solid fa-khanda"></i></div>
                 <div class="card-body">
                     <span class="tag">Rare</span>
-                    <span class="price">€15.00</span>
-                    <h3>Skibidi 10h Loop (4K)</h3>
-                    <p>Uncompressed raw footage. Pure brain decay. No watermarks.</p>
-                    <button class="btn" onclick="openPayment('Skibidi 10h Loop', 15)">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="card">
-                <div class="card-img"><i class="fa-solid fa-music"></i></div>
-                <div class="card-body">
-                    <span class="tag">Legendary</span>
-                    <span class="price">€25.00</span>
-                    <h3>Sigma Phonk Playlist</h3>
-                    <p>200+ distorted tracks. Bass boosted until your ears bleed.</p>
-                    <button class="btn" onclick="openPayment('Sigma Phonk Playlist', 25)">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="card">
-                <div class="card-img"><i class="fa-solid fa-folder-open"></i></div>
-                <div class="card-body">
-                    <span class="tag">Common</span>
-                    <span class="price">€5.00</span>
-                    <h3>20GB Cringe Folder</h3>
-                    <p>Randomly sorted TikToks from 2020. absolute garbage.</p>
-                    <button class="btn" onclick="openPayment('20GB Cringe Folder', 5)">Buy Now</button>
+                    <span class="price">€10.00</span>
+                    <h3>Shiny Gold Doge</h3>
+                    <p>(Royalty V & Magnet III) - 200B Damage</p>
+                    <button class="btn" onclick="openPayment('Shiny Gold Doge', 10)">Buy Now</button>
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
     <div class="modal" id="paymentModal">
         <div class="modal-content">
             <h2 id="modalTitle" style="margin-bottom: 1rem;">Checkout</h2>
-            <p style="color: #aaa; margin-bottom: 1.5rem;">Send cash to secure the rot:</p>
+            <p style="color: #aaa; margin-bottom: 1.5rem;">Secure your item:</p>
             
             <!-- PayPal Link -->
             <div class="payment-opt" onclick="handlePayment('paypal')">
@@ -232,8 +232,7 @@
         // YOUR EMAILS / LINKS
         const PAYPAL_EMAIL = "psg46394@gmail.com"; 
         
-        // You still need a Stripe Payment Link for iDeal to work automatically
-        // If you don't have one, this is a placeholder
+        // Don't forget to put a real link here for iDeal/Credit Card if you have one
         const IDEAL_LINK = "https://buy.stripe.com/YOUR_STRIPE_IDEAL_LINK"; 
 
         function openPayment(product, price) {
@@ -249,8 +248,6 @@
 
         function handlePayment(method) {
             if(method === 'paypal') {
-                // This constructs a direct PayPal checkout link using your email
-                // It autofills the Item Name, Currency (EUR), and Price.
                 const ppUrl = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${currentPrice}&item_name=${encodeURIComponent(currentProduct)}`;
                 window.open(ppUrl, '_blank');
             } else if (method === 'ideal') {
@@ -259,7 +256,6 @@
             closeModal();
         }
 
-        // Close modal if clicking outside
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
