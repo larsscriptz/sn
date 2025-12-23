@@ -152,51 +152,51 @@
         <div class="logo"><i class="fa-solid fa-skull"></i> Brainrot Mart</div>
         <div>
             <a href="#" style="color: white; text-decoration: none; margin-right: 20px;">Shop</a>
-            <a href="#" style="color: var(--accent); text-decoration: none;">Support</a>
+            <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a>
         </div>
     </header>
 
     <div class="hero">
         <h1>Premium Digital Brainrot</h1>
-        <p>Verified sellers. Instant delivery. Absolute garbage for your mind.</p>
+        <p>Verified cringe. Instant delivery. Media that melts your frontal lobe.</p>
     </div>
 
     <div class="container">
-        <h2 class="section-title">Latest Stock</h2>
+        <h2 class="section-title">Latest Drops</h2>
         <div class="grid">
             <!-- Product 1 -->
             <div class="card">
-                <div class="card-img"><i class="fa-solid fa-ghost"></i></div>
+                <div class="card-img"><i class="fa-solid fa-file-video"></i></div>
                 <div class="card-body">
                     <span class="tag">Rare</span>
-                    <span class="price">$15.00</span>
-                    <h3>Skibidi Toilet Mod</h3>
-                    <p>High quality brain decay. Instantly lowers IQ by 50 points.</p>
-                    <button class="btn" onclick="openPayment('Skibidi Toilet Mod', 15)">Buy Now</button>
+                    <span class="price">€15.00</span>
+                    <h3>Skibidi 10h Loop (4K)</h3>
+                    <p>Uncompressed raw footage. Pure brain decay. No watermarks.</p>
+                    <button class="btn" onclick="openPayment('Skibidi 10h Loop', 15)">Buy Now</button>
                 </div>
             </div>
 
             <!-- Product 2 -->
             <div class="card">
-                <div class="card-img"><i class="fa-solid fa-brain"></i></div>
+                <div class="card-img"><i class="fa-solid fa-music"></i></div>
                 <div class="card-body">
                     <span class="tag">Legendary</span>
-                    <span class="price">$25.00</span>
-                    <h3>Sigma Grindset Pack</h3>
-                    <p>Includes 50 rare soundbites and a literal headache.</p>
-                    <button class="btn" onclick="openPayment('Sigma Grindset Pack', 25)">Buy Now</button>
+                    <span class="price">€25.00</span>
+                    <h3>Sigma Phonk Playlist</h3>
+                    <p>200+ distorted tracks. Bass boosted until your ears bleed.</p>
+                    <button class="btn" onclick="openPayment('Sigma Phonk Playlist', 25)">Buy Now</button>
                 </div>
             </div>
 
             <!-- Product 3 -->
             <div class="card">
-                <div class="card-img"><i class="fa-solid fa-virus"></i></div>
+                <div class="card-img"><i class="fa-solid fa-folder-open"></i></div>
                 <div class="card-body">
                     <span class="tag">Common</span>
-                    <span class="price">$5.00</span>
-                    <h3>Cringe Compilation #4</h3>
-                    <p>Standard issue brainrot. Good for starter lobotomies.</p>
-                    <button class="btn" onclick="openPayment('Cringe Compilation #4', 5)">Buy Now</button>
+                    <span class="price">€5.00</span>
+                    <h3>20GB Cringe Folder</h3>
+                    <p>Randomly sorted TikToks from 2020. absolute garbage.</p>
+                    <button class="btn" onclick="openPayment('20GB Cringe Folder', 5)">Buy Now</button>
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
     <div class="modal" id="paymentModal">
         <div class="modal-content">
             <h2 id="modalTitle" style="margin-bottom: 1rem;">Checkout</h2>
-            <p style="color: #aaa; margin-bottom: 1.5rem;">Select your poison:</p>
+            <p style="color: #aaa; margin-bottom: 1.5rem;">Send cash to secure the rot:</p>
             
             <!-- PayPal Link -->
             <div class="payment-opt" onclick="handlePayment('paypal')">
@@ -229,9 +229,11 @@
         let currentProduct = '';
         let currentPrice = 0;
 
-        // YOUR LINKS HERE
-        // Go to paypal.me to get your link, or stripe.com for payment links
-        const PAYPAL_LINK = "https://paypal.me/YOURUSERNAME"; 
+        // YOUR EMAILS / LINKS
+        const PAYPAL_EMAIL = "psg46394@gmail.com"; 
+        
+        // You still need a Stripe Payment Link for iDeal to work automatically
+        // If you don't have one, this is a placeholder
         const IDEAL_LINK = "https://buy.stripe.com/YOUR_STRIPE_IDEAL_LINK"; 
 
         function openPayment(product, price) {
@@ -247,10 +249,10 @@
 
         function handlePayment(method) {
             if(method === 'paypal') {
-                // Generates a PayPal link with amount populated if using business standard links, 
-                // but for simple paypal.me it's manual. 
-                // Ideally, use a Stripe Payment Link for auto-handling both.
-                window.open(`${PAYPAL_LINK}/${currentPrice}`, '_blank');
+                // This constructs a direct PayPal checkout link using your email
+                // It autofills the Item Name, Currency (EUR), and Price.
+                const ppUrl = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${currentPrice}&item_name=${encodeURIComponent(currentProduct)}`;
+                window.open(ppUrl, '_blank');
             } else if (method === 'ideal') {
                 window.open(IDEAL_LINK, '_blank');
             }
