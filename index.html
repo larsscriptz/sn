@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-body: #050505;
+            --bg-body: #050505; /* Darker background like video */
             --bg-card: #121212;
-            --accent: #00ff88;
+            --accent: #00ff88; /* The glowing green from the video */
             --accent-hover: #00cc6a;
             --text-main: #ffffff;
             --text-sec: #a1a1aa;
+            --badge-green: #00ff88;
+            --badge-orange: #ff9900;
+            --badge-red: #ff3333;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -25,7 +28,7 @@
             min-height: 100vh; 
         }
 
-        /* Header */
+        /* --- Header --- */
         header {
             background: rgba(5, 5, 5, 0.95);
             padding: 0.8rem 5%;
@@ -40,62 +43,124 @@
         .logo-img:hover { transform: scale(1.1) rotate(-5deg); }
         .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -1px; text-transform: uppercase; }
 
-        /* Hero */
+        /* --- Hero --- */
         .hero {
-            min-height: 45vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: radial-gradient(circle at center, #10291f 0%, var(--bg-body) 70%);
+            min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at center, #1a2e24 0%, var(--bg-body) 70%);
             margin-top: 70px; padding: 2rem 1rem;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 0.5rem; color: white; text-shadow: 0 0 25px rgba(0, 255, 136, 0.2); }
-        .hero p { color: var(--text-sec); font-size: 1.2rem; }
+        .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; color: white; text-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
+        .hero p { color: var(--text-sec); font-size: 1.1rem; }
 
-        /* Shop Grid */
-        .container { max-width: 1600px; margin: 2rem auto; padding: 0 1.5rem; flex: 1; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        /* --- Shop Grid (Video Style) --- */
+        .container { max-width: 1500px; margin: 2rem auto; padding: 0 1rem; flex: 1; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 1.5rem; 
+        }
 
         .card {
-            background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid #222;
-            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; position: relative;
+            background: var(--bg-card); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid #222;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
         }
-        .card:hover { transform: translateY(-7px); border-color: var(--accent); box-shadow: 0 0 25px rgba(0, 255, 136, 0.15); }
+        
+        /* Hover Effect */
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent); 
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); 
+        }
 
-        /* Badges */
+        /* Stock Badge (Top Right) */
         .stock-badge {
-            position: absolute; top: 10px; right: 10px;
-            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 800;
-            color: #000; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #000;
+            z-index: 10;
+            text-transform: uppercase;
         }
-        .wishlist-btn {
-            position: absolute; top: 10px; left: 10px;
-            width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center; color: #fff;
-            z-index: 10; cursor: pointer; transition: 0.2s;
-        }
-        .wishlist-btn:hover { background: var(--accent); color: #000; }
-
-        /* Images */
+        
+        /* Image Area - Supports Real Images */
         .card-img-container {
-            width: 100%; height: 220px; background: #1a1a1a;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            width: 100%;
+            height: 200px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
-        .card-img-real { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        
+        .card-img-real {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the square nicely */
+            transition: transform 0.3s;
+        }
+        
         .card:hover .card-img-real { transform: scale(1.1); }
-        .card-icon-fallback { font-size: 5rem; color: #333; }
 
-        /* Content */
-        .card-body { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; gap: 10px; }
+        /* Fallback Icon styling if no image */
+        .card-icon-fallback { font-size: 4rem; color: #333; }
+
+        /* Card Content */
+        .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; gap: 8px; }
+        
         .card h3 { 
-            font-size: 1rem; color: #fff; font-weight: 700; line-height: 1.4;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; 
+            font-size: 0.95rem; 
+            color: #fff; 
+            font-weight: 600; 
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em; 
         }
-        .price { font-size: 1.2rem; font-weight: 800; color: var(--accent); margin-top: auto; }
 
-        .btn {
-            width: 100%; padding: 12px; background: transparent; color: var(--accent); 
-            border: 1px solid var(--accent); border-radius: 8px; font-weight: bold; cursor: pointer; 
-            transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        .price { 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            color: var(--accent); 
+            margin-top: auto; /* Pushes price to bottom of text area */
         }
-        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+
+        /* Button - Green like video */
+        .btn {
+            width: 100%; 
+            padding: 10px; 
+            background: transparent; 
+            color: var(--accent); 
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .btn:hover { 
+            background: var(--accent); 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4); 
+        }
 
         /* Footer & Modal */
         footer { background: #080808; border-top: 1px solid #222; padding: 4rem 1rem 1rem; margin-top: 5rem; }
@@ -108,12 +173,14 @@
         .payment-opt { display: flex; align-items: center; gap: 15px; background: #23232a; padding: 1rem; margin: 10px 0; border-radius: 10px; cursor: pointer; border: 1px solid #333; }
         .payment-opt:hover { border-color: var(--accent); background: #2a2a32; }
         .close-btn { background: transparent; border: 1px solid #333; color: #888; padding: 10px; width: 100%; margin-top: 1rem; cursor: pointer; }
+
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-container">
+            <!-- Ensure logo_final.png is in the same folder -->
             <img src="logo_final.png" alt="Brainrot Mart" class="logo-img">
             <div class="logo-text">Brainrot Mart</div>
         </div>
@@ -129,6 +196,7 @@
     </div>
 
     <div class="container">
+        <!-- Live Grid -->
         <div class="grid" id="product-grid"></div>
     </div>
 
@@ -167,70 +235,73 @@
     </div>
 
     <script>
-        // CONFIG
+        // --- YOUR CONFIG ---
         const PAYPAL_EMAIL = "psg46394@gmail.com"; 
         const STRIPE_LINK = "#"; 
 
         /* 
-           --- STOCK LIST ---
-           Paste your image links inside the "image" quotes. 
-           If "image" is empty "", it shows the icon.
+           --- ADMIN STOCK LIST ---
+           1. Paste your Image Link in the "image" field.
+           2. If "image" is empty (""), it shows a generic icon.
+           3. "stock" controls the little badge in the corner.
         */
         const products = [
+            { name: "Radioactive Esok Sekolah 250M/s", price: 50.0, rarity: "Radioactive", traits: "", icon: "fa-radiation" },
+            { name: "Rainbow Los 25 200M/s", price: 50.0, rarity: "Rainbow", traits: "Reindeer & Nyan cat", icon: "fa-rainbow" },
+            { name: "Rainbow Los 25 100M/s", price: 40.0, rarity: "Rainbow", traits: "", icon: "fa-rainbow" },
+            { name: "Rainbow Noo My Present 60M/s", price: 36.0, rarity: "Rainbow", traits: "", icon: "fa-rainbow" },
+            { name: "Diamond Los 25 115M/s", price: 31.5, rarity: "Diamond", traits: "", icon: "fa-gem" },
+            { name: "Galaxy Los Combinasionas 105M/s", price: 55.5, rarity: "Galaxy", traits: "", icon: "fa-rocket" },
+            { name: "Radioactive Chicleteira 172.5M/s", price: 42.25, rarity: "Radioactive", traits: "Bombardino Crocodilo", icon: "fa-radiation" },
+            { name: "Base Chimnino 112M/s", price: 16.2, rarity: "Base", traits: "Taco & Nyan Cat", icon: "fa-box" },
+            { name: "Gold Los Combinasionas 138.7M/s", price: 28.9, rarity: "Gold", traits: "Bubblegum & Fire", icon: "fa-trophy" },
+            { name: "Radioactive Los Candies 195M/s", price: 44.5, rarity: "Radioactive", traits: "", icon: "fa-radiation" },
+            { name: "Base Mieteteira bicicliteira 117M/s", price: 16.7, rarity: "Base", traits: "Rip Trait", icon: "fa-box" },
+            { name: "Base La Taco Combinasion 315M/s", price: 36.5, rarity: "Base", traits: "Bombardino & Fire", icon: "fa-box" },
+            { name: "Gold Chimnino 143.5M/s", price: 29.35, rarity: "Gold", traits: "Nyan Cat & Crab", icon: "fa-trophy" },
+            { name: "Rainbow 67 120M/s", price: 42.0, rarity: "Rainbow", traits: "Taco & Crab", icon: "fa-rainbow" },
+            { name: "Base Chimnino 210M/s", price: 26.0, rarity: "Base", traits: "Taco, Nyan, Ice, Brazil", icon: "fa-box" },
+            { name: "Yin Yang Los 67 213.7M/s", price: 75.0, rarity: "Yin Yang", traits: "67 Trait", icon: "fa-yin-yang" },
+            { name: "Gold Los Combinasionas 123.7M/s", price: 27.5, rarity: "Gold", traits: "Taco & Fire", icon: "fa-trophy" },
+            { name: "Rainbow Los Combinasionas 240M/s", price: 54.0, rarity: "Rainbow", traits: "Bubblegum & Croc", icon: "fa-rainbow" },
             { 
                 name: "Radioactive Esok Sekolah 250M/s", 
                 price: 50.00, 
                 stock: 3, 
-                image: "https://placehold.co/400x400/111/00ff88?text=Radioactive", // EXAMPLE
+                image: "https://imgur.com/a/NLvtWvj", // EXAMPLE IMAGE LINK
                 icon: "fa-radiation" 
             },
             { 
-                name: "Base La Grande combinasion: 10M/s", 
+                name: "Rainbow Los 25 200M/s", 
                 price: 6.00, 
                 stock: 12, 
-                image: "", 
+                image: "", // No image = uses Icon
                 icon: "fa-box" 
             },
-            { name: "Rainbow Los 25 200M/s (Reindeer & Nyan)", price: 50.00, stock: 1, image: "", icon: "fa-rainbow" },
-            { name: "Rainbow Los 25 100M/s", price: 40.00, stock: 5, image: "", icon: "fa-rainbow" },
-            { name: "Rainbow Noo My Present 60M/s", price: 36.00, stock: 2, image: "", icon: "fa-rainbow" },
-            { name: "Diamond Los 25 115M/s", price: 31.50, stock: 8, image: "", icon: "fa-gem" },
-            { name: "Galaxy Los Combinasionas 105M/s", price: 55.50, stock: 4, image: "", icon: "fa-rocket" },
-            { name: "Radioactive Chicleteira 172.5M/s", price: 42.25, stock: 1, image: "", icon: "fa-radiation" },
-            { name: "Base Chimnino 112M/s (Taco & Nyan)", price: 16.20, stock: 15, image: "", icon: "fa-box" },
-            { name: "Gold Los Combinasionas 138.7M/s", price: 28.90, stock: 6, image: "", icon: "fa-trophy" },
-            { name: "Radioactive Los Candies 195M/s", price: 44.50, stock: 3, image: "", icon: "fa-radiation" },
-            { name: "Base Mieteteira bicicliteira 117M/s", price: 16.70, stock: 10, image: "", icon: "fa-box" },
-            { name: "Base La Taco Combinasion 315M/s", price: 36.50, stock: 7, image: "", icon: "fa-box" },
-            { name: "Gold Chimnino 143.5M/s", price: 29.35, stock: 4, image: "", icon: "fa-trophy" },
-            { name: "Rainbow 67 120M/s", price: 42.00, stock: 2, image: "", icon: "fa-rainbow" },
-            { name: "Base Chimnino 210M/s", price: 26.00, stock: 9, image: "", icon: "fa-box" },
-            { name: "Yin Yang Los 67 213.7M/s", price: 75.00, stock: 1, image: "", icon: "fa-yin-yang" },
-            { name: "Gold Los Combinasionas 123.7M/s", price: 27.50, stock: 5, image: "", icon: "fa-trophy" },
-            { name: "Rainbow Los Combinasionas 240M/s", price: 54.00, stock: 2, image: "", icon: "fa-rainbow" },
         ];
 
-        // RENDER SYSTEM
+        // --- RENDER SYSTEM ---
         const grid = document.getElementById('product-grid');
 
         products.forEach(p => {
-            // Logic for Badge Color
-            let stockColor = '#00ff88'; 
-            if(p.stock <= 5) stockColor = '#ff9900'; 
-            if(p.stock <= 2) stockColor = '#ff3333'; 
+            // Determine Stock Badge Color
+            let stockColor = '#00ff88'; // Green
+            if(p.stock <= 5) stockColor = '#ff9900'; // Orange
+            if(p.stock <= 2) stockColor = '#ff3333'; // Red
 
-            // Logic for Image vs Icon
+            // Decide Image vs Icon
             let imageHtml = '';
             if (p.image && p.image.length > 5) {
+                // If there is an image link
                 imageHtml = `<img src="${p.image}" class="card-img-real" alt="${p.name}">`;
             } else {
+                // Fallback to icon
                 imageHtml = `<i class="fa-solid ${p.icon} card-icon-fallback"></i>`;
             }
 
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="wishlist-btn"><i class="fa-regular fa-heart"></i></div>
                 <div class="stock-badge" style="background:${stockColor}; box-shadow: 0 0 10px ${stockColor};">
                     ${p.stock} Left
                 </div>
@@ -252,7 +323,7 @@
             grid.appendChild(card);
         });
 
-        // PAYMENT
+        // --- PAYMENT LOGIC ---
         let currentItem = {};
         const modal = document.getElementById('paymentModal');
 
