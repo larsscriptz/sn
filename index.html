@@ -7,100 +7,180 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #0f0f13;
-            --card-bg: #1a1a20;
-            --accent: #9b4dff;
-            --accent-hover: #b575ff;
+            --bg-body: #050505; /* Darker background like video */
+            --bg-card: #121212;
+            --accent: #00ff88; /* The glowing green from the video */
+            --accent-hover: #00cc6a;
             --text-main: #ffffff;
             --text-sec: #a1a1aa;
-            --success: #4ade80;
-            --rarity-common: #9ca3af;
-            --rarity-rare: #fbbf24;
-            --rarity-toxic: #2dd4bf;
-            --rarity-godly: #a855f7;
-            --rarity-exotic: #f43f5e;
-            --rarity-mythical: #fff;
+            --badge-green: #00ff88;
+            --badge-orange: #ff9900;
+            --badge-red: #ff3333;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        body { background-color: var(--bg-dark); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
 
-        /* Header */
+        /* --- Header --- */
         header {
-            background: rgba(15, 15, 19, 0.95);
+            background: rgba(5, 5, 5, 0.95);
             padding: 0.8rem 5%;
             position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #222;
             display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(10px);
         }
 
         .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-img { height: 55px; width: auto; filter: drop-shadow(0 0 5px rgba(155, 77, 255, 0.3)); transition: 0.3s; }
+        .logo-img { height: 50px; width: auto; transition: 0.3s; }
         .logo-img:hover { transform: scale(1.1) rotate(-5deg); }
         .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -1px; text-transform: uppercase; }
 
-        /* Hero */
+        /* --- Hero --- */
         .hero {
-            min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: radial-gradient(circle at center, #2a1b3d 0%, var(--bg-dark) 70%);
+            min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at center, #1a2e24 0%, var(--bg-body) 70%);
             margin-top: 70px; padding: 2rem 1rem;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glitch 3s infinite; }
-        .hero p { color: var(--text-sec); font-size: 1.2rem; }
+        .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; color: white; text-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
+        .hero p { color: var(--text-sec); font-size: 1.1rem; }
 
-        /* Shop Grid */
-        .container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; flex: 1; }
-        .section-title { font-size: 2rem; margin-bottom: 2rem; border-left: 5px solid var(--accent); padding-left: 1rem; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        /* --- Shop Grid (Video Style) --- */
+        .container { max-width: 1500px; margin: 2rem auto; padding: 0 1rem; flex: 1; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 1.5rem; 
+        }
 
         .card {
-            background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #333;
-            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;
+            background: var(--bg-card); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid #222;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
         }
-        .card:hover { transform: translateY(-7px); box-shadow: 0 10px 25px rgba(155, 77, 255, 0.15); border-color: var(--accent); }
-
-        .card-img {
-            height: 160px; background: #25252e; display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; color: #555; transition: 0.3s; position: relative;
+        
+        /* Hover Effect */
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent); 
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); 
         }
-        .card:hover .card-img { color: #fff; text-shadow: 0 0 15px #fff; }
 
-        .card-body { padding: 1.2rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        /* Stock Badge (Top Right) */
+        .stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #000;
+            z-index: 10;
+            text-transform: uppercase;
+        }
         
-        .tag { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; display: inline-block; margin-bottom: 0.5rem; }
-        .price { float: right; font-weight: bold; color: var(--success); font-size: 1.1rem; }
+        /* Image Area - Supports Real Images */
+        .card-img-container {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
         
-        .card h3 { font-size: 1rem; line-height: 1.4; color: #fff; margin-bottom: 5px; height: 2.8em; overflow: hidden; }
-        .card p { color: var(--text-sec); font-size: 0.85rem; margin-bottom: 1rem; height: 1.2em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-img-real {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the square nicely */
+            transition: transform 0.3s;
+        }
+        
+        .card:hover .card-img-real { transform: scale(1.1); }
 
+        /* Fallback Icon styling if no image */
+        .card-icon-fallback { font-size: 4rem; color: #333; }
+
+        /* Card Content */
+        .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; gap: 8px; }
+        
+        .card h3 { 
+            font-size: 0.95rem; 
+            color: #fff; 
+            font-weight: 600; 
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em; 
+        }
+
+        .price { 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            color: var(--accent); 
+            margin-top: auto; /* Pushes price to bottom of text area */
+        }
+
+        /* Button - Green like video */
         .btn {
-            width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 6px;
-            font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: auto;
+            width: 100%; 
+            padding: 10px; 
+            background: transparent; 
+            color: var(--accent); 
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px;
+            margin-top: 10px;
         }
-        .btn:hover { background: var(--accent-hover); box-shadow: 0 0 15px var(--accent); }
+        .btn:hover { 
+            background: var(--accent); 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4); 
+        }
 
         /* Footer & Modal */
-        footer { background: #050507; border-top: 1px solid #222; padding: 4rem 1rem 1rem; margin-top: 5rem; }
+        footer { background: #080808; border-top: 1px solid #222; padding: 4rem 1rem 1rem; margin-top: 5rem; }
         .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; }
         .footer-col ul { list-style: none; } .footer-col li { margin-bottom: 0.8rem; } .footer-col a { color: var(--text-sec); text-decoration: none; }
         .footer-col h4 { color: #fff; margin-bottom: 1rem; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
-        .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 16px; width: 90%; max-width: 450px; border: 1px solid #333; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { background: #1a1a1a; padding: 2rem; border-radius: 16px; width: 90%; max-width: 450px; border: 1px solid #333; }
         .payment-opt { display: flex; align-items: center; gap: 15px; background: #23232a; padding: 1rem; margin: 10px 0; border-radius: 10px; cursor: pointer; border: 1px solid #333; }
         .payment-opt:hover { border-color: var(--accent); background: #2a2a32; }
         .close-btn { background: transparent; border: 1px solid #333; color: #888; padding: 10px; width: 100%; margin-top: 1rem; cursor: pointer; }
 
-        @keyframes glitch { 0%, 100% { text-shadow: 2px 0 #9b4dff, -2px 0 #00ff00; } 50% { text-shadow: none; } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-container">
+            <!-- Ensure logo_final.png is in the same folder -->
             <img src="logo_final.png" alt="Brainrot Mart" class="logo-img">
             <div class="logo-text">Brainrot Mart</div>
         </div>
@@ -116,11 +196,8 @@
     </div>
 
     <div class="container">
-        <h2 class="section-title">Current Inventory <span style="font-size:1rem; color:#666; margin-left:10px;">(Live Updates)</span></h2>
-        
-        <!-- THIS IS WHERE ITEMS WILL APPEAR AUTOMATICALLY -->
+        <!-- Live Grid -->
         <div class="grid" id="product-grid"></div>
-
     </div>
 
     <footer>
@@ -143,32 +220,30 @@
     <!-- Payment Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
-            <h2 id="modalTitle">Checkout</h2>
+            <h2 id="modalTitle" style="color: white;">Checkout</h2>
             <p style="color:#888; margin-bottom:1.5rem;">Secure Transaction</p>
             <div class="payment-opt" onclick="handlePayment('paypal')">
                 <i class="fa-brands fa-paypal" style="color:#0070ba; font-size:1.5rem;"></i>
-                <span>PayPal</span>
+                <span style="color: white;">PayPal</span>
             </div>
             <div class="payment-opt" onclick="handlePayment('stripe')">
                 <i class="fa-solid fa-credit-card" style="color:#d63384; font-size:1.5rem;"></i>
-                <span>Credit Card / iDeal</span>
+                <span style="color: white;">Credit Card / iDeal</span>
             </div>
             <button class="close-btn" onclick="document.getElementById('paymentModal').style.display='none'">Cancel</button>
         </div>
     </div>
 
     <script>
-        // CONFIGURATION
+        // --- YOUR CONFIG ---
         const PAYPAL_EMAIL = "psg46394@gmail.com"; 
         const STRIPE_LINK = "#"; 
 
         /* 
-           ----------------------------------------------------
-           --- ADMIN AREA: STOCK LIST -------------------------
-           ----------------------------------------------------
-           TO ADD ITEMS: Copy a line, paste it, and edit the name/price.
-           Icon Options: "fa-radiation", "fa-box", "fa-rainbow", "fa-gem", "fa-rocket", "fa-yin-yang", "fa-trophy"
-           Rarity Options: "Toxic", "Common", "Godly", "Legendary", "Exotic", "Rare", "Mythical"
+           --- ADMIN STOCK LIST ---
+           1. Paste your Image Link in the "image" field.
+           2. If "image" is empty (""), it shows a generic icon.
+           3. "stock" controls the little badge in the corner.
         */
         const products = [
             { name: "Radioactive Esok Sekolah 250M/s", price: 50.0, rarity: "Radioactive", traits: "", icon: "fa-radiation" },
@@ -190,39 +265,83 @@
             { name: "Yin Yang Los 67 213.7M/s", price: 75.0, rarity: "Yin Yang", traits: "67 Trait", icon: "fa-yin-yang" },
             { name: "Gold Los Combinasionas 123.7M/s", price: 27.5, rarity: "Gold", traits: "Taco & Fire", icon: "fa-trophy" },
             { name: "Rainbow Los Combinasionas 240M/s", price: 54.0, rarity: "Rainbow", traits: "Bubblegum & Croc", icon: "fa-rainbow" },
+            { 
+                name: "Radioactive Esok Sekolah 250M/s", 
+                price: 50.00, 
+                stock: 3, 
+                image: "https://placehold.co/400x400/111/00ff88?text=Radioactive", // EXAMPLE IMAGE LINK
+                icon: "fa-radiation" 
+            },
+            { 
+                name: "Base La Grande combinasion: 10M/s", 
+                price: 6.00, 
+                stock: 12, 
+                image: "", // No image = uses Icon
+                icon: "fa-box" 
+            },
+            { name: "Rainbow Los 25 200M/s (Reindeer & Nyan)", price: 50.00, stock: 1, image: "", icon: "fa-rainbow" },
+            { name: "Rainbow Los 25 100M/s", price: 40.00, stock: 5, image: "", icon: "fa-rainbow" },
+            { name: "Rainbow Noo My Present 60M/s", price: 36.00, stock: 2, image: "", icon: "fa-rainbow" },
+            { name: "Diamond Los 25 115M/s", price: 31.50, stock: 8, image: "", icon: "fa-gem" },
+            { name: "Galaxy Los Combinasionas 105M/s", price: 55.50, stock: 4, image: "", icon: "fa-rocket" },
+            { name: "Radioactive Chicleteira 172.5M/s", price: 42.25, stock: 1, image: "", icon: "fa-radiation" },
+            { name: "Base Chimnino 112M/s (Taco & Nyan)", price: 16.20, stock: 15, image: "", icon: "fa-box" },
+            { name: "Gold Los Combinasionas 138.7M/s", price: 28.90, stock: 6, image: "", icon: "fa-trophy" },
+            { name: "Radioactive Los Candies 195M/s", price: 44.50, stock: 3, image: "", icon: "fa-radiation" },
+            { name: "Base Mieteteira bicicliteira 117M/s", price: 16.70, stock: 10, image: "", icon: "fa-box" },
+            { name: "Base La Taco Combinasion 315M/s", price: 36.50, stock: 7, image: "", icon: "fa-box" },
+            { name: "Gold Chimnino 143.5M/s", price: 29.35, stock: 4, image: "", icon: "fa-trophy" },
+            { name: "Rainbow 67 120M/s", price: 42.00, stock: 2, image: "", icon: "fa-rainbow" },
+            { name: "Base Chimnino 210M/s", price: 26.00, stock: 9, image: "", icon: "fa-box" },
+            { name: "Yin Yang Los 67 213.7M/s", price: 75.00, stock: 1, image: "", icon: "fa-yin-yang" },
+            { name: "Gold Los Combinasionas 123.7M/s", price: 27.50, stock: 5, image: "", icon: "fa-trophy" },
+            { name: "Rainbow Los Combinasionas 240M/s", price: 54.00, stock: 2, image: "", icon: "fa-rainbow" },
         ];
 
-        // RENDER SYSTEM
+        // --- RENDER SYSTEM ---
         const grid = document.getElementById('product-grid');
-        
-        // Colors for tags
-        const colors = { 
-            "Common": "#9ca3af", "Rare": "#fbbf24", "Toxic": "#2dd4bf", 
-            "Godly": "#a855f7", "Exotic": "#f43f5e", "Legendary": "#3b82f6", "Mythical": "#ffffff" 
-        };
 
         products.forEach(p => {
-            const color = colors[p.rarity] || "#ccc";
-            const traitHtml = p.traits ? `<p style="color:#aaa; font-size:0.8rem;">(${p.traits})</p>` : `<p>&nbsp;</p>`;
-            
+            // Determine Stock Badge Color
+            let stockColor = '#00ff88'; // Green
+            if(p.stock <= 5) stockColor = '#ff9900'; // Orange
+            if(p.stock <= 2) stockColor = '#ff3333'; // Red
+
+            // Decide Image vs Icon
+            let imageHtml = '';
+            if (p.image && p.image.length > 5) {
+                // If there is an image link
+                imageHtml = `<img src="${p.image}" class="card-img-real" alt="${p.name}">`;
+            } else {
+                // Fallback to icon
+                imageHtml = `<i class="fa-solid ${p.icon} card-icon-fallback"></i>`;
+            }
+
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="card-img" style="color:${color}"><i class="fa-solid ${p.icon}"></i></div>
+                <div class="stock-badge" style="background:${stockColor}; box-shadow: 0 0 10px ${stockColor};">
+                    ${p.stock} Left
+                </div>
+                
+                <div class="card-img-container">
+                    ${imageHtml}
+                </div>
+
                 <div class="card-body">
-                    <div>
-                        <span class="tag" style="color:${color}; border:1px solid ${color}33;">${p.rarity}</span>
-                        <span class="price">€${p.price.toFixed(2)}</span>
-                        <h3>${p.name}</h3>
-                        ${traitHtml}
+                    <h3>${p.name}</h3>
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
+                        <span class="price">$${p.price.toFixed(2)}</span>
                     </div>
-                    <button class="btn" onclick="openPayment('${p.name}', ${p.price})">Buy Now</button>
+                    <button class="btn" onclick="openPayment('${p.name}', ${p.price})">
+                        Buy Now <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
                 </div>
             `;
             grid.appendChild(card);
         });
 
-        // PAYMENT LOGIC
+        // --- PAYMENT LOGIC ---
         let currentItem = {};
         const modal = document.getElementById('paymentModal');
 
