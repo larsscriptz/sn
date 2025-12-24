@@ -173,15 +173,14 @@
 
         /* 
            --- STOCK LIST ---
-           Paste your image links inside the "image" quotes. 
-           If "image" is empty "", it shows the icon.
+           I added your green guy image to the first item!
         */
         const products = [
             { 
                 name: "Radioactive Esok Sekolah 250M/s", 
                 price: 50.00, 
                 stock: 3, 
-                image: "https://placehold.co/400x400/111/00ff88?text=Radioactive", // EXAMPLE
+                image: "https://i.imgur.com/RXiB4Qi.png", 
                 icon: "fa-radiation" 
             },
             { 
@@ -241,4 +240,38 @@
 
                 <div class="card-body">
                     <h3>${p.name}</h3>
-                    <div style="display:flex; align-items:center; justify-content:space-between; margi
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
+                        <span class="price">$${p.price.toFixed(2)}</span>
+                    </div>
+                    <button class="btn" onclick="openPayment('${p.name}', ${p.price})">
+                        Buy Now <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // PAYMENT
+        let currentItem = {};
+        const modal = document.getElementById('paymentModal');
+
+        function openPayment(name, price) {
+            currentItem = { name, price };
+            document.getElementById('modalTitle').innerText = `Buy: ${name}`;
+            modal.style.display = 'flex';
+        }
+
+        function handlePayment(method) {
+            if(method === 'paypal') {
+                const url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_EMAIL}&currency_code=EUR&amount=${currentItem.price}&item_name=${encodeURIComponent(currentItem.name)}`;
+                window.open(url, '_blank');
+            } else {
+                window.open(STRIPE_LINK, '_blank');
+            }
+            modal.style.display = 'none';
+        }
+
+        window.onclick = e => { if(e.target == modal) modal.style.display = 'none'; }
+    </script>
+</body>
+</html>
